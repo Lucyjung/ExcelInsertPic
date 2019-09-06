@@ -144,7 +144,7 @@
             this.width.Name = "width";
             this.width.Size = new System.Drawing.Size(48, 20);
             this.width.TabIndex = 1;
-            this.width.Text = "165";
+            this.width.Text = "210";
             this.width.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.number_KeyPress);
             // 
             // height

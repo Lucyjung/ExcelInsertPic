@@ -50,7 +50,12 @@ namespace ExcelInsertPic
             int i = 0;
             foreach (String file in fileList)
             {
-                var shape = xlWorkSheet.Shapes.AddPicture(file, MsoTriState.msoFalse, MsoTriState.msoCTrue, startX, staryY, pictureSizeX, pictureSizeY);
+                
+                int imgWidth = pictureSizeX;
+                int imgHeight = pictureSizeY;
+
+                adjustImgSize(file, pictureSizeX, pictureSizeY, ref imgWidth, ref imgHeight);
+                var shape = xlWorkSheet.Shapes.AddPicture(file, MsoTriState.msoFalse, MsoTriState.msoCTrue, startX, staryY, imgWidth, imgHeight);
                 shape.Line.Style = MsoLineStyle.msoLineSingle;
                 int row = (i / 2) + 1;
                 if (i % 2 == 0)
@@ -124,6 +129,19 @@ namespace ExcelInsertPic
             {
                 e.Handled = true;
             }
+        }
+        private void adjustImgSize(string file, int targetWidth, int targetHeight, ref int newWidth, ref int newHeight)
+        {
+            System.Drawing.Image img = System.Drawing.Image.FromFile(file);
+            // Figure out the ratio
+            double ratioX = (double)targetWidth / (double)img.Width;
+            double ratioY = (double)targetHeight / (double)img.Height;
+            // use whichever multiplier is smaller
+            double ratio = ratioX < ratioY ? ratioX : ratioY;
+
+            // now we can get the new height and width
+            newHeight = Convert.ToInt32(img.Height * ratio);
+            newWidth = Convert.ToInt32(img.Width * ratio);
         }
     }
 }
