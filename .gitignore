@@ -1,0 +1,14 @@
+**/adminbot/node_modules/
+**/corebot/node_modules/
+**/corebot/mydebug/
+**/DB/
+*.log
+*.sql
+*.txt
+*.bacpac
+*.json
+**/corebot/*.json
+**/adminbot/*.json
+**/adminbot/scripts/
+node_modules
+bin
